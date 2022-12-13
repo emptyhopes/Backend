@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+
+    "baseUrl": ".",
+
+    "paths": {
+      "@Application/*": ["Application/*"],
+      "@Configs/*": ["Configs/*"]
+    }
+  }
+}

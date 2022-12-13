@@ -1,0 +1,63 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource database {
+  provider = "postgresql"
+  url      = "postgres://postgres:cTF78mu5FBwi3Bc@localhost:5432/gartmann"
+}
+
+model User {
+  id String @default(uuid()) @database.Uuid()
+
+  email    String @database.VarChar(255)
+  username String @database.VarChar(255)
+  password String @database.VarChar(255)
+
+  is_activated Boolean @default(false)
+  is_protected Boolean @default(false)
+
+  role    Role @relation(fields: [role_id], references: [id])
+  role_id Int
+
+  token Token?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@id([id])
+  @@unique([email, username])
+  @@map("users")
+}
+
+model Role {
+  id Int @default(autoincrement())
+
+  name String @database.VarChar(255)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  User User[]
+
+  @@id([id])
+  @@unique([name])
+  @@map("roles")
+}
+
+model Token {
+  id Int @default(autoincrement())
+
+  refresh String @database.VarChar(255)
+  secret  String @database.VarChar(255)
+
+  user    User   @relation(fields: [user_id], references: [id])
+  user_id String @database.Uuid()
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@id([id])
+  @@unique([user_id])
+  @@map("tokens")
+}
