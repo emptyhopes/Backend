@@ -1,12 +1,12 @@
-import { UserGraphQLResolver } from "@Application/Containers/Users/GraphQL/Resolvers/UserGraphQLResolver";
+import { UserGraphQLResolver } from "@/Application/Containers/Users/GraphQL/Resolvers/UserGraphQLResolver";
 
 const resolvers = {
   Query: {
-    ...UserGraphQLResolver.Query
+    ...UserGraphQLResolver.Query,
   },
   Mutation: {
-    ...UserGraphQLResolver.Mutation
-  }
+    ...UserGraphQLResolver.Mutation,
+  },
 };
 
 export { resolvers };

@@ -1,0 +1,38 @@
+on: [push]
+
+jobs:
+  push:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node-version: [latest]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Starting Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: NPM update
+        run: npm install --global npm@latest
+
+      - name: NPM install
+        run: npm install
+
+      - name: Check prettier
+        run: npm run prettier:write
+
+      - name: Check eslint
+        run: npm run lint
+
+      - name: Check tests
+        run: npm run tests
+
+      - name: Check development build
+        run: npm run development
+
+      - name: Check production application build
+        run: npm run production:default

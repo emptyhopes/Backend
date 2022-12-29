@@ -3,12 +3,13 @@
     "target": "ES6",
     "module": "CommonJS",
     "moduleResolution": "Node",
+    "strict": true,
+    "alwaysStrict": true,
 
     "baseUrl": ".",
 
     "paths": {
-      "@Application/*": ["Application/*"],
-      "@Configs/*": ["Configs/*"]
+      "@/*": ["*"]
     }
   }
 }
