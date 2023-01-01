@@ -36,6 +36,8 @@ const UserGraphQLSchemaInputs = `
     email: String!
     username: String!
     password: String!
+
+    role_id: Int!
   }
 
   input UpdateUserInput {

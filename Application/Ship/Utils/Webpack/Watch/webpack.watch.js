@@ -11,6 +11,8 @@ const Watch = {
   mode: "development",
   devtool: "source-map",
 
+  watch: true,
+
   entry: {
     index: Paths.paths.absolute.entry.development.index,
   },

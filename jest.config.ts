@@ -1,4 +1,6 @@
 const config = {
+  testEnvironment: "node",
+
   moduleFileExtensions: ["json", "js", "ts"],
 
   moduleNameMapper: {
