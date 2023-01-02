@@ -1,6 +1,7 @@
 import { prisma } from "@/Application/Ship/Prisma/Client/index";
 
 import {
+  GetAllRolesPaginationInputInterface,
   GetOneRoleByIDInputInterface,
   GetOneRoleByNameInputInterface,
   CreateRoleInputInterface,
@@ -16,10 +17,17 @@ const RoleGraphQLResolver = {
     GetAllRoles: async () => {
       return await prisma.role.findMany();
     },
-    GetOneRole: async (_: undefined, { id }: GetOneRoleByIDInputInterface) => {
+    GetAllRolesPagination: async (_: undefined, { input }: GetAllRolesPaginationInputInterface) => {
+      return await prisma.role.findMany({ take: input.take, skip: input.skip });
+    },
+    GetOneRoleByID: async (_: undefined, { id }: GetOneRoleByIDInputInterface) => {
+      await RoleGraphQLValidations.GetOneRoleByIDValidation({ id: id });
+
       return await prisma.role.findUnique({ where: { id: Number(id) } });
     },
     GetOneRoleByName: async (_: undefined, { name }: GetOneRoleByNameInputInterface) => {
+      await RoleGraphQLValidations.GetOneRoleByNameValidation({ name: name });
+
       return await prisma.role.findUnique({ where: { name: String(name) } });
     },
   },
@@ -33,7 +41,10 @@ const RoleGraphQLResolver = {
     UpdateRole: async (_: undefined, { input }: UpdateRoleInputInterface) => {
       await RoleGraphQLValidations.UpdateRoleValidation({ input: input });
 
-      return await prisma.role.update({ data: input, where: { id: input.id } });
+      return await prisma.role.update({
+        data: { name: input.name },
+        where: { id: Number(input.id) },
+      });
     },
     DeleteRoleByID: async (_: undefined, { id }: DeleteRoleByIDInputInterface) => {
       await RoleGraphQLValidations.DeleteRoleByIDValidation({ id: id });

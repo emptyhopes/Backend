@@ -1,9 +1,7 @@
 const RoleGraphQLSchemaModel = `
   type Role {
     id: ID
-
     name: String!
-
     created_at: String
     updated_at: String
   }
@@ -12,6 +10,7 @@ const RoleGraphQLSchemaModel = `
 const RoleGraphQLSchemaQuery = `
   type Query {
     GetAllRoles: [Role]
+    GetAllRolesPagination(input: GetAllRolesPaginationInput!): [Role]
     GetOneRoleByID(id: ID!): Role
     GetOneRoleByName(name: String!): Role
   }
@@ -27,16 +26,18 @@ const RoleGraphQLSchemaMutation = `
 `;
 
 const RoleGraphQLSchemaInputs = `
+  input GetAllRolesPaginationInput {
+    take: Int!
+    skip: Int!
+  }
+
   input CreateRoleInput {
     name: String!
   }
 
   input UpdateRoleInput {
     id: ID!
-
-    name: String
-
-    updated_at: String
+    name: String!
   }
 `;
 

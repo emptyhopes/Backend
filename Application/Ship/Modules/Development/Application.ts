@@ -23,6 +23,12 @@ class Application extends null {
     typeDefs: schema,
     resolvers: resolvers,
 
+    includeStacktraceInErrorResponses: false,
+
+    formatError(FormattedError) {
+      return { message: FormattedError.message, extensions: FormattedError.extensions };
+    },
+
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer: this.HTTPServer })],
   });
 

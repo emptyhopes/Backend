@@ -1,3 +1,10 @@
+interface GetAllRolesPaginationInputInterface {
+  input: {
+    take: number;
+    skip: number;
+  };
+}
+
 interface GetOneRoleByIDInputInterface {
   id: number;
 }
@@ -15,10 +22,7 @@ interface CreateRoleInputInterface {
 interface UpdateRoleInputInterface {
   input: {
     id: number;
-
     name: string;
-
-    updated_at: string;
   };
 }
 
@@ -33,12 +37,12 @@ interface DeleteRoleByNameInputInterface {
 interface RoleOutputInterface {
   id: number;
   name: string;
-
   created_at: string;
   update_at: string;
 }
 
 export {
+  GetAllRolesPaginationInputInterface,
   GetOneRoleByIDInputInterface,
   GetOneRoleByNameInputInterface,
   CreateRoleInputInterface,
