@@ -6,7 +6,7 @@ import * as cors from "cors";
 import { json } from "body-parser";
 
 import { ApolloServer } from "@apollo/server";
-import { ApolloServerPluginLandingPageDisabled } from "@apollo/server/plugin/disabled";
+// import { ApolloServerPluginLandingPageDisabled } from "@apollo/server/plugin/disabled";
 import { expressMiddleware } from "@apollo/server/express4";
 import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
 
@@ -24,9 +24,15 @@ class Application {
     typeDefs: schema,
     resolvers: resolvers,
 
+    includeStacktraceInErrorResponses: false,
+
+    formatError(FormattedError) {
+      return { message: FormattedError.message, extensions: FormattedError.extensions };
+    },
+
     plugins: [
       ApolloServerPluginDrainHttpServer({ httpServer: this.HTTPServer }),
-      ApolloServerPluginLandingPageDisabled(),
+      // ApolloServerPluginLandingPageDisabled(),
     ],
   });
 

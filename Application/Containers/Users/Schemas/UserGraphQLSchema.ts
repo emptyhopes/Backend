@@ -6,10 +6,10 @@ const UserGraphQLSchemaModel = `
     username: String!
     password: String!
 
-    role_id: Int
+    role_id: Int!
 
-    is_activated: Boolean
-    is_protected: Boolean
+    is_activated: Boolean!
+    is_protected: Boolean!
 
     created_at: String
     updated_at: String
@@ -41,7 +41,7 @@ const UserGraphQLSchemaInputs = `
   }
 
   input UpdateUserInput {
-    id: String!
+    id: ID!
 
     email: String
     username: String
@@ -52,7 +52,6 @@ const UserGraphQLSchemaInputs = `
     is_activated: Boolean
     is_protected: Boolean
 
-    created_at: String
     updated_at: String
   }
 `;
