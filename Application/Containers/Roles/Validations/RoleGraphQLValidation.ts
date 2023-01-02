@@ -1,25 +1,49 @@
+import { GraphQLError } from "graphql";
+
 import { prisma } from "@/Application/Ship/Prisma/Client/index";
 
 import {
-  CreateRoleInterfaceInput,
-  UpdateRoleInterfaceInput,
-  DeleteRoleInterfaceInput,
+  GetOneRoleByIDInputInterface,
+  GetOneRoleByNameInputInterface,
+  CreateRoleInputInterface,
+  UpdateRoleInputInterface,
+  DeleteRoleByIDInputInterface,
+  DeleteRoleByNameInputInterface,
 } from "@/Application/Containers/Roles/Types/RolesTypes";
 
-const CreateRoleValidation = async ({ input }: CreateRoleInterfaceInput) => {
-  const role = await prisma.role.findUnique({ where: { name: String(input.name) } });
+class RoleGraphQLValidations extends null {
+  static async GetOneRoleByIDValidation({ id }: GetOneRoleByIDInputInterface) {
+    return id;
+  }
 
-  if (typeof input.name !== "string") throw new Error("Ошибка валидации.");
+  static async GetOneRoleByNameValidation({ name }: GetOneRoleByNameInputInterface) {
+    return name;
+  }
 
-  if (role) throw new Error("Пользователь уже существует.");
-};
+  static async CreateRoleValidation({ input }: CreateRoleInputInterface) {
+    const role = await prisma.role.findUnique({ where: { name: String(input.name) } });
 
-const UpdateRoleValidation = async ({ input }: UpdateRoleInterfaceInput) => {
-  return input;
-};
+    if (typeof input.name !== "string") {
+      throw new GraphQLError("Ошибка валидации.", { extensions: { code: "BAD_USER_INPUT", http: { status: 400 } } });
+    }
+    if (role) {
+      throw new GraphQLError("Пользователь уже существует.", {
+        extensions: { code: "BAD_USER_INPUT", http: { status: 400 } },
+      });
+    }
+  }
 
-const DeleteRoleValidation = async ({ id }: DeleteRoleInterfaceInput) => {
-  return id;
-};
+  static async UpdateRoleValidation({ input }: UpdateRoleInputInterface) {
+    return input;
+  }
 
-export { CreateRoleValidation, UpdateRoleValidation, DeleteRoleValidation };
+  static async DeleteRoleByIDValidation({ id }: DeleteRoleByIDInputInterface) {
+    return id;
+  }
+
+  static async DeleteRoleByNameValidation({ name }: DeleteRoleByNameInputInterface) {
+    return name;
+  }
+}
+
+export { RoleGraphQLValidations };

@@ -10,10 +10,10 @@ class Paths extends null {
       output: resolve(this.root, "Build", "static"),
       entry: {
         development: {
-          index: resolve(this.root, "Application", "index.ts"),
+          index: resolve(this.root, "Application", "Ship", "Utils", "Application", "Development", "index.ts"),
         },
         production: {
-          index: resolve(this.root, "Application", "index.ts"),
+          index: resolve(this.root, "Application", "Ship", "Utils", "Application", "Production", "index.ts"),
         },
       },
     },

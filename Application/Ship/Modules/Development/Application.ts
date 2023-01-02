@@ -6,41 +6,31 @@ import * as cors from "cors";
 import { json } from "body-parser";
 
 import { ApolloServer } from "@apollo/server";
-// import { ApolloServerPluginLandingPageDisabled } from "@apollo/server/plugin/disabled";
 import { expressMiddleware } from "@apollo/server/express4";
 import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
 
 import { schema } from "@/Application/Ship/GraphQL/Schemas/index";
 import { resolvers } from "@/Application/Ship/GraphQL/Resolvers/index";
 
-class Application {
-  hostname = "localhost";
-  port = 4000;
+class Application extends null {
+  static hostname = "localhost";
+  static port = 4000;
 
-  application = express();
-  HTTPServer = http.createServer(this.application);
+  static application = express();
+  static HTTPServer = http.createServer(this.application);
 
-  server = new ApolloServer({
+  static server = new ApolloServer({
     typeDefs: schema,
     resolvers: resolvers,
 
-    includeStacktraceInErrorResponses: false,
-
-    formatError(FormattedError) {
-      return { message: FormattedError.message, extensions: FormattedError.extensions };
-    },
-
-    plugins: [
-      ApolloServerPluginDrainHttpServer({ httpServer: this.HTTPServer }),
-      // ApolloServerPluginLandingPageDisabled(),
-    ],
+    plugins: [ApolloServerPluginDrainHttpServer({ httpServer: this.HTTPServer })],
   });
 
-  Run() {
+  static Run() {
     this.Listen();
   }
 
-  async Listen() {
+  static async Listen() {
     await this.server.start();
 
     this.application.use(
@@ -58,9 +48,9 @@ class Application {
     await new Promise<void>((resolve) => this.HTTPServer.listen({ port: 4000 }, resolve));
   }
 
-  GetServer() {
+  static GetServer() {
     return this.server;
   }
 }
 
-export default new Application();
+export { Application };

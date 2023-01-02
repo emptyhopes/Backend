@@ -1,48 +1,51 @@
-import { prisma } from "@/Application/Ship/Prisma/Client/index";
-
-import {
-  CreateRoleResponse,
-  DeleteRoleResponse,
-  GetAllRolesResponse,
-} from "@/Application/Containers/Roles/Tests/RolesHelper";
+import { RolesResponse } from "@/Application/Containers/Roles/Tests/RolesResponse";
 
 describe("Roles", () => {
   test("Create role", async () => {
-    const response = await CreateRoleResponse("ADMIN");
+    const response = await RolesResponse.CreateRoleResponse("TEST");
 
     expect(response.body.kind === "single");
 
     if (response.body.kind === "single") {
       expect(response.body.singleResult.errors).toBeUndefined();
-      expect(response.body.singleResult.data?.CreateRole.name).toEqual("ADMIN");
+      expect(response.body.singleResult.data?.CreateRole.name).toEqual("TEST");
     }
   });
 
   test("Delete role", async () => {
-    await CreateRoleResponse("ADMIN");
+    await RolesResponse.CreateRoleResponse("TEST");
 
-    const response = await DeleteRoleResponse(1);
+    const response = await RolesResponse.DeleteRoleResponse(1);
 
     expect(response.body.kind === "single");
 
     if (response.body.kind === "single") {
       expect(response.body.singleResult.errors).toBeUndefined();
-      expect(response.body.singleResult.data?.DeleteRole.name).toEqual("ADMIN");
+      expect(response.body.singleResult.data?.DeleteRole.name).toEqual("TEST");
     }
   });
 
   test("Get all roles", async () => {
-    await CreateRoleResponse("ADMIN");
+    await RolesResponse.CreateRoleResponse("TEST");
 
-    const response = await GetAllRolesResponse();
+    const response = await RolesResponse.GetAllRolesResponse();
 
     expect(response.body.kind === "single");
 
     if (response.body.kind === "single") {
       expect(response.body.singleResult.errors).toBeUndefined();
-      expect(response.body.singleResult.data?.GetAllRoles[0].name).toEqual("ADMIN");
+
+      const roles = response.body.singleResult.data?.GetAllRoles;
+
+      let find = false;
+
+      if (roles) {
+        for (let index = 0; index < roles.length; index++) {
+          if (roles[index].name === "TEST") find = true;
+        }
+      }
+
+      expect(find).toEqual(true);
     }
   });
-
-  beforeEach(async () => await prisma.$executeRaw`TRUNCATE roles RESTART IDENTITY CASCADE;`);
 });

@@ -12,7 +12,8 @@ const RoleGraphQLSchemaModel = `
 const RoleGraphQLSchemaQuery = `
   type Query {
     GetAllRoles: [Role]
-    GetOneRole(id: ID!): Role
+    GetOneRoleByID(id: ID!): Role
+    GetOneRoleByName(name: String!): Role
   }
 `;
 
@@ -20,7 +21,8 @@ const RoleGraphQLSchemaMutation = `
   type Mutation {
     CreateRole(input: CreateRoleInput!): Role
     UpdateRole(input: UpdateRoleInput!): Role
-    DeleteRole(id: ID!): Role
+    DeleteRoleByID(id: ID!): Role
+    DeleteRoleByName(name: String!): Role
   }
 `;
 

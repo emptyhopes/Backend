@@ -1,14 +1,18 @@
-interface GetOneRoleInterfaceInput {
+interface GetOneRoleByIDInputInterface {
   id: number;
 }
 
-interface CreateRoleInterfaceInput {
+interface GetOneRoleByNameInputInterface {
+  name: string;
+}
+
+interface CreateRoleInputInterface {
   input: {
     name: string;
   };
 }
 
-interface UpdateRoleInterfaceInput {
+interface UpdateRoleInputInterface {
   input: {
     id: number;
 
@@ -18,11 +22,15 @@ interface UpdateRoleInterfaceInput {
   };
 }
 
-interface DeleteRoleInterfaceInput {
+interface DeleteRoleByIDInputInterface {
   id: number;
 }
 
-interface RoleInterfaceOutput {
+interface DeleteRoleByNameInputInterface {
+  name: string;
+}
+
+interface RoleOutputInterface {
   id: number;
   name: string;
 
@@ -31,9 +39,11 @@ interface RoleInterfaceOutput {
 }
 
 export {
-  GetOneRoleInterfaceInput,
-  CreateRoleInterfaceInput,
-  UpdateRoleInterfaceInput,
-  DeleteRoleInterfaceInput,
-  RoleInterfaceOutput,
+  GetOneRoleByIDInputInterface,
+  GetOneRoleByNameInputInterface,
+  CreateRoleInputInterface,
+  UpdateRoleInputInterface,
+  DeleteRoleByIDInputInterface,
+  DeleteRoleByNameInputInterface,
+  RoleOutputInterface,
 };
