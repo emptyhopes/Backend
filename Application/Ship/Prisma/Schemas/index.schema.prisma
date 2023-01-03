@@ -7,15 +7,28 @@ datasource database {
   url      = "postgres://postgres:qwerty12345@localhost:5432/backend"
 }
 
-model User {
-  id String @default(uuid()) @database.Uuid()
+model Role {
+  id Int @default(autoincrement())
 
-  email    String @database.VarChar(255)
-  username String @database.VarChar(255)
+  name String @unique @database.VarChar(255)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  User User[]
+
+  @@id([id])
+  @@map("roles")
+}
+
+model User {
+  id String @default(uuid())
+
+  email    String @unique @database.VarChar(255)
+  username String @unique @database.VarChar(255)
   password String @database.VarChar(255)
 
   is_activated Boolean @default(false)
-  is_protected Boolean @default(false)
 
   role    Role @relation(fields: [role_id], references: [id])
   role_id Int
@@ -26,23 +39,7 @@ model User {
   updated_at DateTime @updatedAt
 
   @@id([id])
-  @@unique([email, username])
   @@map("users")
-}
-
-model Role {
-  id Int @default(autoincrement())
-
-  name String @database.VarChar(255)
-
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-
-  User User[]
-
-  @@id([id])
-  @@unique([name])
-  @@map("roles")
 }
 
 model Token {
@@ -52,12 +49,11 @@ model Token {
   secret  String @database.VarChar(255)
 
   user    User   @relation(fields: [user_id], references: [id])
-  user_id String @database.Uuid()
+  user_id String @unique
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
   @@id([id])
-  @@unique([user_id])
   @@map("tokens")
 }

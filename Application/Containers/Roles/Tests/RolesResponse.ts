@@ -17,16 +17,16 @@ import {
 class RolesResponse extends null {
   static async GetAllRolesResponse(): Promise<GraphQLResponse<{ GetAllRoles: RoleOutputInterface[] }>> {
     const response = await server.executeOperation<{ GetAllRoles: RoleOutputInterface[] }>({
-      query: `#graphql
-                query {
-                    GetAllRoles {
-                      id
-                      name
-                      created_at
-                      updated_at
-                    }
-                }
-            `,
+      query: `
+        query { 
+          GetAllRoles { 
+            id
+            name
+            created_at
+            updated_at
+          } 
+        }
+      `,
     });
 
     return response;
@@ -36,23 +36,18 @@ class RolesResponse extends null {
     input,
   }: GetAllRolesPaginationInputInterface): Promise<GraphQLResponse<{ GetAllRolesPagination: RoleOutputInterface[] }>> {
     const response = await server.executeOperation<{ GetAllRolesPagination: RoleOutputInterface[] }>({
-      query: `#graphql
-                query GetAllRolesPagination ($input: GetAllRolesPaginationInput!) {
-                  GetAllRolesPagination (input: $input) {
-                      id
-                      name
-                      created_at
-                      updated_at
-                    }
-                }
-            `,
+      query: ` 
+        query GetAllRolesPagination ($input: GetAllRolesPaginationInput!) { 
+          GetAllRolesPagination (input: $input) { 
+            id
+            name
+            created_at
+            updated_at
+          } 
+        }
+      `,
 
-      variables: {
-        input: {
-          take: input.take,
-          skip: input.skip,
-        },
-      },
+      variables: { input: { take: input.take, skip: input.skip } },
     });
 
     return response;
@@ -62,20 +57,18 @@ class RolesResponse extends null {
     id,
   }: GetOneRoleByIDInputInterface): Promise<GraphQLResponse<{ GetOneRoleByID: RoleOutputInterface }>> {
     const response = await server.executeOperation<{ GetOneRoleByID: RoleOutputInterface }>({
-      query: `#graphql
-                query GetOneRoleByID ($id: ID!) {
-                    GetOneRoleByID (id: $id) {
-                      id
-                      name
-                      created_at
-                      updated_at
-                    }
-                }
-            `,
+      query: ` 
+        query GetOneRoleByID ($id: ID!) { 
+          GetOneRoleByID (id: $id) {
+            id
+            name
+            created_at
+            updated_at
+          }
+        }
+      `,
 
-      variables: {
-        id: id,
-      },
+      variables: { id: id },
     });
 
     return response;
@@ -85,20 +78,18 @@ class RolesResponse extends null {
     name,
   }: GetOneRoleByNameInputInterface): Promise<GraphQLResponse<{ GetOneRoleByName: RoleOutputInterface }>> {
     const response = await server.executeOperation<{ GetOneRoleByName: RoleOutputInterface }>({
-      query: `#graphql
-                query GetOneRoleByID ($name: String!) {
-                    GetOneRoleByName (name: $name) {
-                      id
-                      name
-                      created_at
-                      updated_at
-                    }
-                }
-            `,
+      query: ` 
+        query GetOneRoleByName ($name: String!) { 
+          GetOneRoleByName (name: $name) { 
+            id
+            name
+            created_at
+            updated_at
+          } 
+        }
+      `,
 
-      variables: {
-        name: name,
-      },
+      variables: { name: name },
     });
 
     return response;
@@ -108,22 +99,18 @@ class RolesResponse extends null {
     input,
   }: CreateRoleInputInterface): Promise<GraphQLResponse<{ CreateRole: RoleOutputInterface }>> {
     const response = await server.executeOperation<{ CreateRole: RoleOutputInterface }>({
-      query: `#graphql
-                mutation CreateRole ($input: CreateRoleInput!) {
-                  CreateRole (input: $input) {
-                    id
-                    name
-                    created_at
-                    updated_at
-                  }
-                }
-              `,
+      query: ` 
+        mutation CreateRole ($input: CreateRoleInput!) { 
+          CreateRole (input: $input) { 
+            id
+            name
+            created_at
+            updated_at
+          } 
+        }
+      `,
 
-      variables: {
-        input: {
-          name: input.name,
-        },
-      },
+      variables: { input: { name: input.name } },
     });
 
     return response;
@@ -133,23 +120,18 @@ class RolesResponse extends null {
     input,
   }: UpdateRoleInputInterface): Promise<GraphQLResponse<{ UpdateRole: RoleOutputInterface }>> {
     const response = await server.executeOperation<{ UpdateRole: RoleOutputInterface }>({
-      query: `#graphql
-                mutation UpdateRole ($input: UpdateRoleInput!) {
-                  UpdateRole (input: $input) {
-                    id
-                    name
-                    created_at
-                    updated_at
-                  }
-                }
-              `,
+      query: ` 
+        mutation UpdateRole ($input: UpdateRoleInput!) { 
+          UpdateRole (input: $input) { 
+            id
+            name
+            created_at
+            updated_at
+          } 
+        }
+      `,
 
-      variables: {
-        input: {
-          id: input.id,
-          name: input.name,
-        },
-      },
+      variables: { input: { id: input.id, name: input.name } },
     });
 
     return response;
@@ -159,20 +141,18 @@ class RolesResponse extends null {
     id,
   }: DeleteRoleByIDInputInterface): Promise<GraphQLResponse<{ DeleteRoleByID: RoleOutputInterface }>> {
     const response = await server.executeOperation<{ DeleteRoleByID: RoleOutputInterface }>({
-      query: `#graphql
-              mutation DeleteRoleByID ($id: ID!) {
-                DeleteRoleByID (id: $id) {
-                  id
-                  name
-                  created_at
-                  updated_at
-                }
-              }
-            `,
+      query: ` 
+        mutation DeleteRoleByID ($id: ID!) { 
+          DeleteRoleByID (id: $id) { 
+            id
+            name
+            created_at
+            updated_at
+          } 
+        }
+      `,
 
-      variables: {
-        id: id,
-      },
+      variables: { id: id },
     });
 
     return response;
@@ -182,45 +162,38 @@ class RolesResponse extends null {
     name,
   }: DeleteRoleByNameInputInterface): Promise<GraphQLResponse<{ DeleteRoleByName: RoleOutputInterface }>> {
     const response = await server.executeOperation<{ DeleteRoleByName: RoleOutputInterface }>({
-      query: `#graphql
-              mutation DeleteRoleByName ($name: String!) {
-                DeleteRoleByName (name: $name) {
-                  id
-                  name
-                  created_at
-                  updated_at
-                }
-              }
-            `,
+      query: ` 
+        mutation DeleteRoleByName ($name: String!) { 
+          DeleteRoleByName (name: $name) { 
+            id
+            name
+            created_at
+            updated_at
+          } 
+        }
+      `,
 
-      variables: {
-        name: name,
-      },
+      variables: { name: name },
     });
 
     return response;
   }
 
-  static async GetRoleID(name: string): Promise<RoleOutputInterface | null> {
-    const response = await this.GetAllRolesResponse();
-
+  static async GetRoleIDByName(name: string): Promise<RoleOutputInterface | null> {
     let result = null;
+    const response = await this.GetAllRolesResponse();
 
     if (response.body.kind === "single") {
       if (response.body.singleResult.errors) return null;
-
       const data = response.body.singleResult.data?.GetAllRoles;
-
       if (data) result = data.filter((value) => value.name === name)[0];
     }
 
     return result;
   }
 
-  static async ClearRoleID() {
-    const length = await prisma.role.count();
-
-    await prisma.$executeRawUnsafe(`ALTER SEQUENCE roles_id_seq RESTART WITH ${length + 1}`);
+  static async GetCountRoles() {
+    return await prisma.role.count();
   }
 }
 

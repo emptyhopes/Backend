@@ -18,43 +18,34 @@ const RoleGraphQLResolver = {
       return await prisma.role.findMany();
     },
     GetAllRolesPagination: async (_: undefined, { input }: GetAllRolesPaginationInputInterface) => {
-      return await prisma.role.findMany({ take: input.take, skip: input.skip });
+      return await prisma.role.findMany({ take: input.take, skip: input.skip, orderBy: { id: "asc" } });
     },
     GetOneRoleByID: async (_: undefined, { id }: GetOneRoleByIDInputInterface) => {
-      await RoleGraphQLValidations.GetOneRoleByIDValidation({ id: id });
-
-      return await prisma.role.findUnique({ where: { id: Number(id) } });
+      const data = await RoleGraphQLValidations.GetOneRoleByIDValidation({ id: id });
+      return await prisma.role.findUnique({ where: { id: Number(data) } });
     },
     GetOneRoleByName: async (_: undefined, { name }: GetOneRoleByNameInputInterface) => {
-      await RoleGraphQLValidations.GetOneRoleByNameValidation({ name: name });
-
-      return await prisma.role.findUnique({ where: { name: String(name) } });
+      const data = await RoleGraphQLValidations.GetOneRoleByNameValidation({ name: name });
+      return await prisma.role.findUnique({ where: { name: String(data) } });
     },
   },
 
   Mutation: {
     CreateRole: async (_: undefined, { input }: CreateRoleInputInterface) => {
-      await RoleGraphQLValidations.CreateRoleValidation({ input: input });
-
-      return await prisma.role.create({ data: input });
+      const data = await RoleGraphQLValidations.CreateRoleValidation({ input: input });
+      return await prisma.role.create({ data: data });
     },
     UpdateRole: async (_: undefined, { input }: UpdateRoleInputInterface) => {
-      await RoleGraphQLValidations.UpdateRoleValidation({ input: input });
-
-      return await prisma.role.update({
-        data: { name: input.name },
-        where: { id: Number(input.id) },
-      });
+      const data = await RoleGraphQLValidations.UpdateRoleValidation({ input: input });
+      return await prisma.role.update({ data: data, where: { id: Number(data.id) } });
     },
     DeleteRoleByID: async (_: undefined, { id }: DeleteRoleByIDInputInterface) => {
-      await RoleGraphQLValidations.DeleteRoleByIDValidation({ id: id });
-
-      return await prisma.role.delete({ where: { id: Number(id) } });
+      const data = await RoleGraphQLValidations.DeleteRoleByIDValidation({ id: id });
+      return await prisma.role.delete({ where: { id: Number(data) } });
     },
     DeleteRoleByName: async (_: undefined, { name }: DeleteRoleByNameInputInterface) => {
-      await RoleGraphQLValidations.DeleteRoleByNameValidation({ name: name });
-
-      return await prisma.role.delete({ where: { name: String(name) } });
+      const data = await RoleGraphQLValidations.DeleteRoleByNameValidation({ name: name });
+      return await prisma.role.delete({ where: { name: String(data) } });
     },
   },
 };

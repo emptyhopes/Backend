@@ -27,7 +27,7 @@ class Application extends null {
     includeStacktraceInErrorResponses: false,
 
     formatError(FormattedError) {
-      return { message: FormattedError.message, extensions: FormattedError.extensions };
+      return { message: FormattedError.message, extensions: { code: FormattedError.extensions?.code } };
     },
 
     plugins: [

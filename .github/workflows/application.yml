@@ -44,9 +44,6 @@ jobs:
       - name: Database init
         run: npm run database:init
 
-      - name: Database generate files in node_modules folder (need for prisma)
-        run: npm run database:generate
-
       - name: Check tests
         run: npm run tests
 

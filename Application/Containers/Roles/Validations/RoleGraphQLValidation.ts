@@ -14,81 +14,51 @@ import {
 
 class RoleGraphQLValidations extends null {
   static async GetAllRolesPaginationValidation({ input }: GetAllRolesPaginationInputInterface) {
-    if (typeof Number(input.take) !== "number") {
-      throw new GraphQLError("Ошибка валидации.", { extensions: { code: "BAD_USER_INPUT", http: { status: 400 } } });
-    }
-
-    if (typeof Number(input.skip) !== "number") {
-      throw new GraphQLError("Ошибка валидации.", { extensions: { code: "BAD_USER_INPUT", http: { status: 400 } } });
-    }
+    return input;
   }
 
   static async GetOneRoleByIDValidation({ id }: GetOneRoleByIDInputInterface) {
     const role = await prisma.role.findUnique({ where: { id: Number(id) } });
+    if (!role) throw new GraphQLError("The user does not exist.", { extensions: { code: "BAD_USER_INPUT" } });
 
-    if (!role) {
-      throw new GraphQLError("Пользователя не существует.", {
-        extensions: { code: "BAD_USER_INPUT", http: { status: 400 } },
-      });
-    }
+    return id;
   }
 
   static async GetOneRoleByNameValidation({ name }: GetOneRoleByNameInputInterface) {
     const role = await prisma.role.findUnique({ where: { name: String(name) } });
+    if (!role) throw new GraphQLError("The user does not exist.", { extensions: { code: "BAD_USER_INPUT" } });
 
-    if (!role) {
-      throw new GraphQLError("Пользователя не существует.", {
-        extensions: { code: "BAD_USER_INPUT", http: { status: 400 } },
-      });
-    }
+    return name;
   }
 
   static async CreateRoleValidation({ input }: CreateRoleInputInterface) {
     const role = await prisma.role.findUnique({ where: { name: String(input.name) } });
+    if (role) throw new GraphQLError("The user already exists.", { extensions: { code: "BAD_USER_INPUT" } });
 
-    if (typeof input.name !== "string") {
-      throw new GraphQLError("Ошибка валидации.", { extensions: { code: "BAD_USER_INPUT", http: { status: 400 } } });
-    }
-
-    if (role) {
-      throw new GraphQLError("Пользователь уже существует.", {
-        extensions: { code: "BAD_USER_INPUT", http: { status: 400 } },
-      });
-    }
+    return input;
   }
 
   static async UpdateRoleValidation({ input }: UpdateRoleInputInterface) {
-    if (typeof input.name !== "string") {
-      throw new GraphQLError("Ошибка валидации.", { extensions: { code: "BAD_USER_INPUT", http: { status: 400 } } });
-    }
-
     const role = await prisma.role.findUnique({ where: { name: String(input.name) } });
+    if (role) throw new GraphQLError("The user already exists.", { extensions: { code: "BAD_USER_INPUT" } });
 
-    if (role) {
-      throw new GraphQLError("Пользователь уже существует.", {
-        extensions: { code: "BAD_USER_INPUT", http: { status: 400 } },
-      });
-    }
+    input.id = Number(input.id);
+
+    return input;
   }
 
   static async DeleteRoleByIDValidation({ id }: DeleteRoleByIDInputInterface) {
     const role = await prisma.role.findUnique({ where: { id: Number(id) } });
+    if (!role) throw new GraphQLError("The user does not exist.", { extensions: { code: "BAD_USER_INPUT" } });
 
-    if (!role) {
-      throw new GraphQLError("Пользователя не существует.", {
-        extensions: { code: "BAD_USER_INPUT", http: { status: 400 } },
-      });
-    }
+    return id;
   }
 
   static async DeleteRoleByNameValidation({ name }: DeleteRoleByNameInputInterface) {
     const role = await prisma.role.findUnique({ where: { name: String(name) } });
+    if (!role) throw new GraphQLError("The user does not exist.", { extensions: { code: "BAD_USER_INPUT" } });
 
-    if (!role) {
-      throw new GraphQLError("Пользователя не существует.", {
-        extensions: { code: "BAD_USER_INPUT", http: { status: 400 } },
-      });
-    }
+    return name;
   }
 }
 
