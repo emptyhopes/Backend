@@ -7,35 +7,29 @@ describe("Users", () => {
   test("GetAllUsers", async () => {
     const response = await UsersResponse.GetAllUsersResponse();
     expect(response.body.kind === "single");
-    if (response.body.kind !== "single") return;
+    if (response.body.kind !== "single") throw new Error();
 
     expect(response.body.singleResult.errors).toBeUndefined();
     expect(response.body.singleResult.data?.GetAllUsers).not.toEqual(null);
   });
 
-  // test("GetAllUsersPagination", async () => {
-  //   const length = (await UsersResponse.GetCountUsers()) - 9;
-  //   const response = await UsersResponse.GetAllUsersPaginationResponse({ input: { take: 2, skip: length } });
-  //   expect(response.body.kind === "single");
-  //   if (response.body.kind !== "single") return;
+  test("GetAllUsersPagination", async () => {
+    const response = await UsersResponse.GetAllUsersPaginationResponse({ input: { take: 0, skip: 0 } });
+    expect(response.body.kind === "single");
+    if (response.body.kind !== "single") throw new Error();
 
-  //   expect(response.body.singleResult.errors).toBeUndefined();
-  //   expect(response.body.singleResult.data?.GetAllUsersPagination).not.toEqual(null);
-  //   expect(response.body.singleResult.data?.GetAllUsersPagination[0]?.email).toEqual(
-  //     "FirstGetAllUsersPagination@gmail.com",
-  //   );
-  //   expect(response.body.singleResult.data?.GetAllUsersPagination[1]?.email).toEqual(
-  //     "SecondGetAllUsersPagination@gmail.com",
-  //   );
-  // });
+    expect(response.body.singleResult.errors).toBeUndefined();
+    expect(response.body.singleResult.data?.GetAllUsersPagination).not.toEqual(null);
+  });
 
   test("GetOneUserByID", async () => {
     const user = await UsersResponse.GetUserIDByEmail("GetOneUserByID@gmail.com");
-    if (!user) return;
+    expect(user).not.toBeUndefined();
+    if (!user) throw new Error();
 
     const response = await UsersResponse.GetOneUserByIDResponse({ id: user.id });
     expect(response.body.kind === "single");
-    if (response.body.kind !== "single") return;
+    if (response.body.kind !== "single") throw new Error();
 
     expect(response.body.singleResult.errors).toBeUndefined();
     expect(response.body.singleResult.data?.GetOneUserByID).not.toEqual(null);
@@ -45,7 +39,7 @@ describe("Users", () => {
   test("GetOneUserByUsername", async () => {
     const response = await UsersResponse.GetOneUserByUsernameResponse({ username: "GetOneUserByUsername" });
     expect(response.body.kind === "single");
-    if (response.body.kind !== "single") return;
+    if (response.body.kind !== "single") throw new Error();
 
     expect(response.body.singleResult.errors).toBeUndefined();
     expect(response.body.singleResult.data?.GetOneUserByUsername).not.toEqual(null);
@@ -55,7 +49,7 @@ describe("Users", () => {
   test("GetOneUserByEmail", async () => {
     const response = await UsersResponse.GetOneUserByEmailResponse({ email: "GetOneUserByEmail@gmail.com" });
     expect(response.body.kind === "single");
-    if (response.body.kind !== "single") return;
+    if (response.body.kind !== "single") throw new Error();
 
     expect(response.body.singleResult.errors).toBeUndefined();
     expect(response.body.singleResult.data?.GetOneUserByEmail).not.toEqual(null);
@@ -67,7 +61,7 @@ describe("Users", () => {
       input: { email: "CreateUser@gmail.com", username: "CreateUser", password: "CreateUser" },
     });
     expect(response.body.kind === "single");
-    if (response.body.kind !== "single") return;
+    if (response.body.kind !== "single") throw new Error();
 
     expect(response.body.singleResult.errors).toBeUndefined();
     expect(response.body.singleResult.data?.CreateUser).not.toEqual(null);
@@ -76,10 +70,12 @@ describe("Users", () => {
 
   test("UpdateUser", async () => {
     const user = await UsersResponse.GetUserIDByEmail("UpdateUser@gmail.com");
-    const role = await RolesResponse.GetRoleIDByName("UpdateUser");
+    expect(user).not.toBeUndefined();
+    if (!user) throw new Error();
 
-    if (!user) return;
-    if (!role) return;
+    const role = await RolesResponse.GetRoleIDByName("UpdateUser");
+    expect(role).not.toBeUndefined();
+    if (!role) throw new Error();
 
     const response = await UsersResponse.UpdateUserResponse({
       input: {
@@ -92,7 +88,7 @@ describe("Users", () => {
       },
     });
     expect(response.body.kind === "single");
-    if (response.body.kind !== "single") return;
+    if (response.body.kind !== "single") throw new Error();
 
     expect(response.body.singleResult.errors).toBeUndefined();
     expect(response.body.singleResult.data?.UpdateUser).not.toEqual(null);
@@ -104,11 +100,12 @@ describe("Users", () => {
 
   test("DeleteUserByID", async () => {
     const user = await UsersResponse.GetUserIDByEmail("DeleteUserByID@gmail.com");
-    if (!user) return;
+    expect(user).not.toBeUndefined();
+    if (!user) throw new Error();
 
     const response = await UsersResponse.DeleteUserByIDResponse({ id: String(user.id) });
     expect(response.body.kind === "single");
-    if (response.body.kind !== "single") return;
+    if (response.body.kind !== "single") throw new Error();
 
     expect(response.body.singleResult.errors).toBeUndefined();
     expect(response.body.singleResult.data?.DeleteUserByID).not.toEqual(null);
@@ -118,7 +115,7 @@ describe("Users", () => {
   test("DeleteUserByUsername", async () => {
     const response = await UsersResponse.DeleteUserByUsernameResponse({ username: "DeleteUserByUsername" });
     expect(response.body.kind === "single");
-    if (response.body.kind !== "single") return;
+    if (response.body.kind !== "single") throw new Error();
 
     expect(response.body.singleResult.errors).toBeUndefined();
     expect(response.body.singleResult.data?.DeleteUserByUsername).not.toEqual(null);
@@ -128,7 +125,7 @@ describe("Users", () => {
   test("DeleteUserByEmail", async () => {
     const response = await UsersResponse.DeleteUserByEmailResponse({ email: "DeleteUserByEmail@gmail.com" });
     expect(response.body.kind === "single");
-    if (response.body.kind !== "single") return;
+    if (response.body.kind !== "single") throw new Error();
 
     expect(response.body.singleResult.errors).toBeUndefined();
     expect(response.body.singleResult.data?.DeleteUserByEmail).not.toEqual(null);
@@ -137,20 +134,7 @@ describe("Users", () => {
 
   beforeAll(async () => {
     await GraphQLSeeds.Init();
-    // await UsersResponse.CreateUserResponse({
-    //   input: {
-    //     email: "FirstGetAllUsersPagination@gmail.com",
-    //     username: "FirstGetAllUsersPagination",
-    //     password: "FirstGetAllUsersPagination",
-    //   },
-    // });
-    // await UsersResponse.CreateUserResponse({
-    //   input: {
-    //     email: "SecondGetAllUsersPagination@gmail.com",
-    //     username: "SecondGetAllUsersPagination",
-    //     password: "SecondGetAllUsersPagination",
-    //   },
-    // });
+
     await UsersResponse.CreateUserResponse({
       input: {
         email: "GetOneUserByID@gmail.com",
@@ -204,8 +188,6 @@ describe("Users", () => {
   });
 
   afterAll(async () => {
-    // await UsersResponse.DeleteUserByEmailResponse({ email: "FirstGetAllUsersPagination@gmail.com" });
-    // await UsersResponse.DeleteUserByEmailResponse({ email: "SecondGetAllUsersPagination@gmail.com" });
     await UsersResponse.DeleteUserByEmailResponse({ email: "GetOneUserByID@gmail.com" });
     await UsersResponse.DeleteUserByEmailResponse({ email: "GetOneUserByUsername@gmail.com" });
     await UsersResponse.DeleteUserByEmailResponse({ email: "GetOneUserByEmail@gmail.com" });
