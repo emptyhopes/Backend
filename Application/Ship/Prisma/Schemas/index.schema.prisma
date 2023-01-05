@@ -28,8 +28,6 @@ model User {
   username String @unique @database.VarChar(255)
   password String @database.VarChar(255)
 
-  is_activated Boolean @default(false)
-
   role    Role @relation(fields: [role_id], references: [id])
   role_id Int
 
@@ -46,7 +44,6 @@ model Token {
   id Int @default(autoincrement())
 
   refresh String @database.VarChar(255)
-  secret  String @database.VarChar(255)
 
   user    User   @relation(fields: [user_id], references: [id])
   user_id String @unique

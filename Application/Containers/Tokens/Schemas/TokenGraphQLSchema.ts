@@ -2,7 +2,6 @@ const TokenGraphQLSchemaModel = `
   type Token {
     id: ID
     refresh: String!
-    secret: String!
     user_id: String!
     created_at: String
     updated_at: String
@@ -35,14 +34,12 @@ const TokenGraphQLSchemaInputs = `
 
   input CreateTokenInput {
     refresh: String!
-    secret: String!
     user_id: String!
   }
 
   input UpdateTokenInput {
     id: ID!
     refresh: String!
-    secret: String!
     user_id: String!
   }
 `;

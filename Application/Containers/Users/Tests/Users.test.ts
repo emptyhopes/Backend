@@ -83,7 +83,6 @@ describe("Users", () => {
         email: "UpdatedUser@gmail.com",
         username: "UpdatedUser",
         password: "UpdatedUser",
-        is_activated: true,
         role_id: Number(role.id),
       },
     });
@@ -95,7 +94,6 @@ describe("Users", () => {
     expect(response.body.singleResult.data?.UpdateUser.email).toEqual("UpdatedUser@gmail.com");
     expect(response.body.singleResult.data?.UpdateUser.username).toEqual("UpdatedUser");
     expect(response.body.singleResult.data?.UpdateUser.password).toEqual("UpdatedUser");
-    expect(response.body.singleResult.data?.UpdateUser.is_activated).toEqual(true);
   });
 
   test("DeleteUserByID", async () => {

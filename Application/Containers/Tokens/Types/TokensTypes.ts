@@ -16,7 +16,6 @@ interface GetOneTokenByUserIDInputInterface {
 interface CreateTokenInputInterface {
   input: {
     refresh: string;
-    secret: string;
     user_id: string;
   };
 }
@@ -25,7 +24,6 @@ interface UpdateTokenInputInterface {
   input: {
     id: number;
     refresh: string;
-    secret: string;
     user_id: string;
   };
 }
@@ -41,7 +39,6 @@ interface DeleteTokenByUserIDInputInterface {
 interface TokenOutputInterface {
   id: number;
   refresh: string;
-  secret: string;
   user_id: string;
   created_at: string;
   updated_at: string;

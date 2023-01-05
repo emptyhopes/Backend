@@ -32,7 +32,6 @@ interface UpdateUserInputInterface {
     email: string;
     username: string;
     password: string;
-    is_activated: boolean;
     role_id: number;
   };
 }
@@ -54,7 +53,6 @@ interface UserOutputInterface {
   email: string;
   username: string;
   password: string;
-  is_activated: boolean;
   role_id: number;
   created_at: string;
   updated_at: string;

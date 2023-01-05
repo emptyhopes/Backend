@@ -22,7 +22,6 @@ class TokensResponse extends null {
           GetAllTokens { 
             id
             refresh
-            secret
             user_id
             created_at
             updated_at
@@ -45,7 +44,6 @@ class TokensResponse extends null {
           GetAllTokensPagination (input: $input) { 
             id
             refresh
-            secret
             user_id
             created_at
             updated_at
@@ -68,7 +66,6 @@ class TokensResponse extends null {
           GetOneTokenByID (id: $id) {
             id
             refresh
-            secret
             user_id
             created_at
             updated_at
@@ -91,7 +88,6 @@ class TokensResponse extends null {
             GetOneTokenByUserID (user_id: $user_id) { 
             id
             refresh
-            secret
             user_id
             created_at
             updated_at
@@ -114,7 +110,6 @@ class TokensResponse extends null {
             CreateToken (input: $input) {
               id
               refresh
-              secret
               user_id
               created_at
               updated_at
@@ -122,7 +117,7 @@ class TokensResponse extends null {
           }
         `,
 
-      variables: { input: { refresh: input.refresh, secret: input.secret, user_id: input.user_id } },
+      variables: { input: { refresh: input.refresh, user_id: input.user_id } },
     });
 
     return response;
@@ -137,7 +132,6 @@ class TokensResponse extends null {
             UpdateToken (input: $input) {
               id
               refresh
-              secret
               user_id
               created_at
               updated_at
@@ -145,7 +139,7 @@ class TokensResponse extends null {
           }
         `,
 
-      variables: { input: { id: input.id, refresh: input.refresh, secret: input.secret, user_id: input.user_id } },
+      variables: { input: { id: input.id, refresh: input.refresh, user_id: input.user_id } },
     });
 
     return response;
@@ -160,7 +154,6 @@ class TokensResponse extends null {
           DeleteTokenByID (id: $id) { 
             id
             refresh
-            secret
             user_id
             created_at
             updated_at
@@ -183,7 +176,6 @@ class TokensResponse extends null {
           DeleteTokenByUserID (user_id: $user_id) { 
             id
             refresh
-            secret
             user_id
             created_at
             updated_at

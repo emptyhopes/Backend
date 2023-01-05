@@ -26,7 +26,6 @@ class UsersResponse extends null {
             email
             username
             password
-            is_activated
             role_id
             created_at
             updated_at
@@ -49,7 +48,6 @@ class UsersResponse extends null {
             email
             username
             password
-            is_activated
             role_id
             created_at
             updated_at 
@@ -74,7 +72,6 @@ class UsersResponse extends null {
             email
             username
             password
-            is_activated
             role_id
             created_at
             updated_at
@@ -99,7 +96,6 @@ class UsersResponse extends null {
             email
             username
             password
-            is_activated
             role_id
             created_at
             updated_at
@@ -124,7 +120,6 @@ class UsersResponse extends null {
             email
             username
             password
-            is_activated
             role_id
             created_at
             updated_at
@@ -157,7 +152,6 @@ class UsersResponse extends null {
             email
             username
             password
-            is_activated
             role_id
             created_at
             updated_at
@@ -182,7 +176,6 @@ class UsersResponse extends null {
             email
             username
             password
-            is_activated
             role_id
             created_at
             updated_at
@@ -196,7 +189,6 @@ class UsersResponse extends null {
           email: input.email,
           username: input.username,
           password: input.password,
-          is_activated: input.is_activated,
           role_id: input.role_id,
         },
       },
@@ -216,7 +208,6 @@ class UsersResponse extends null {
             email
             username
             password
-            is_activated
             role_id
             created_at
             updated_at
@@ -241,7 +232,6 @@ class UsersResponse extends null {
             email
             username
             password
-            is_activated
             role_id
             created_at
             updated_at
@@ -266,7 +256,6 @@ class UsersResponse extends null {
             email
             username
             password
-            is_activated
             role_id
             created_at
             updated_at

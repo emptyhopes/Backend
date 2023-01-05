@@ -40,7 +40,6 @@ describe("Tokens", () => {
     expect(response.body.singleResult.errors).toBeUndefined();
     expect(response.body.singleResult.data?.GetOneTokenByID).not.toEqual(null);
     expect(response.body.singleResult.data?.GetOneTokenByID.refresh).toEqual("GetOneTokenByID");
-    expect(response.body.singleResult.data?.GetOneTokenByID.secret).toEqual("GetOneTokenByID");
     expect(response.body.singleResult.data?.GetOneTokenByID.user_id).toEqual(user.id);
   });
 
@@ -56,7 +55,6 @@ describe("Tokens", () => {
     expect(response.body.singleResult.errors).toBeUndefined();
     expect(response.body.singleResult.data?.GetOneTokenByUserID).not.toEqual(null);
     expect(response.body.singleResult.data?.GetOneTokenByUserID.refresh).toEqual("GetOneTokenByUserID");
-    expect(response.body.singleResult.data?.GetOneTokenByUserID.secret).toEqual("GetOneTokenByUserID");
     expect(response.body.singleResult.data?.GetOneTokenByUserID.user_id).toEqual(user.id);
   });
 
@@ -66,7 +64,7 @@ describe("Tokens", () => {
     if (!user) throw new Error();
 
     const response = await TokensResponse.CreateTokenResponse({
-      input: { refresh: "CreateToken", secret: "CreateToken", user_id: user.id },
+      input: { refresh: "CreateToken", user_id: user.id },
     });
     expect(response.body.kind === "single");
     if (response.body.kind !== "single") throw new Error();
@@ -74,7 +72,6 @@ describe("Tokens", () => {
     expect(response.body.singleResult.errors).toBeUndefined();
     expect(response.body.singleResult.data?.CreateToken).not.toEqual(null);
     expect(response.body.singleResult.data?.CreateToken.refresh).toEqual("CreateToken");
-    expect(response.body.singleResult.data?.CreateToken.secret).toEqual("CreateToken");
     expect(response.body.singleResult.data?.CreateToken.user_id).toEqual(user.id);
   });
 
@@ -88,7 +85,7 @@ describe("Tokens", () => {
     if (!token) throw new Error();
 
     const response = await TokensResponse.UpdateTokenResponse({
-      input: { id: token.id, refresh: "UpdatedToken", secret: "UpdatedToken", user_id: user.id },
+      input: { id: token.id, refresh: "UpdatedToken", user_id: user.id },
     });
     expect(response.body.kind === "single");
     if (response.body.kind !== "single") throw new Error();
@@ -96,7 +93,6 @@ describe("Tokens", () => {
     expect(response.body.singleResult.errors).toBeUndefined();
     expect(response.body.singleResult.data?.UpdateToken).not.toEqual(null);
     expect(response.body.singleResult.data?.UpdateToken.refresh).toEqual("UpdatedToken");
-    expect(response.body.singleResult.data?.UpdateToken.secret).toEqual("UpdatedToken");
     expect(response.body.singleResult.data?.UpdateToken.user_id).toEqual(user.id);
   });
 
@@ -116,7 +112,6 @@ describe("Tokens", () => {
     expect(response.body.singleResult.errors).toBeUndefined();
     expect(response.body.singleResult.data?.DeleteTokenByID).not.toEqual(null);
     expect(response.body.singleResult.data?.DeleteTokenByID.refresh).toEqual("DeleteTokenByID");
-    expect(response.body.singleResult.data?.DeleteTokenByID.secret).toEqual("DeleteTokenByID");
     expect(response.body.singleResult.data?.DeleteTokenByID.user_id).toEqual(user.id);
   });
 
@@ -136,7 +131,6 @@ describe("Tokens", () => {
     expect(response.body.singleResult.errors).toBeUndefined();
     expect(response.body.singleResult.data?.DeleteTokenByUserID).not.toEqual(null);
     expect(response.body.singleResult.data?.DeleteTokenByUserID.refresh).toEqual("DeleteTokenByUserID");
-    expect(response.body.singleResult.data?.DeleteTokenByUserID.secret).toEqual("DeleteTokenByUserID");
     expect(response.body.singleResult.data?.DeleteTokenByUserID.user_id).toEqual(user.id);
   });
 
@@ -150,7 +144,7 @@ describe("Tokens", () => {
     const GetOneTokenByID = await UsersResponse.GetUserIDByEmail("GetOneTokenByID@gmail.com");
     if (!GetOneTokenByID) throw new Error();
     await TokensResponse.CreateTokenResponse({
-      input: { refresh: "GetOneTokenByID", secret: "GetOneTokenByID", user_id: GetOneTokenByID?.id },
+      input: { refresh: "GetOneTokenByID", user_id: GetOneTokenByID?.id },
     });
 
     // GetOneTokenByUserID
@@ -164,7 +158,7 @@ describe("Tokens", () => {
     const GetOneTokenByUserID = await UsersResponse.GetUserIDByEmail("GetOneTokenByUserID@gmail.com");
     if (!GetOneTokenByUserID) throw new Error();
     await TokensResponse.CreateTokenResponse({
-      input: { refresh: "GetOneTokenByUserID", secret: "GetOneTokenByUserID", user_id: GetOneTokenByUserID?.id },
+      input: { refresh: "GetOneTokenByUserID", user_id: GetOneTokenByUserID?.id },
     });
 
     // CreateToken
@@ -187,7 +181,7 @@ describe("Tokens", () => {
     const UpdateToken = await UsersResponse.GetUserIDByEmail("UpdateToken@gmail.com");
     if (!UpdateToken) throw new Error();
     await TokensResponse.CreateTokenResponse({
-      input: { refresh: "UpdateToken", secret: "UpdateToken", user_id: UpdateToken?.id },
+      input: { refresh: "UpdateToken", user_id: UpdateToken?.id },
     });
 
     // DeleteTokenByID
@@ -201,7 +195,7 @@ describe("Tokens", () => {
     const DeleteTokenByID = await UsersResponse.GetUserIDByEmail("DeleteTokenByID@gmail.com");
     if (!DeleteTokenByID) throw new Error();
     await TokensResponse.CreateTokenResponse({
-      input: { refresh: "DeleteTokenByID", secret: "DeleteTokenByID", user_id: DeleteTokenByID?.id },
+      input: { refresh: "DeleteTokenByID", user_id: DeleteTokenByID?.id },
     });
 
     // DeleteTokenByUserID
@@ -215,7 +209,7 @@ describe("Tokens", () => {
     const DeleteTokenByUserID = await UsersResponse.GetUserIDByEmail("DeleteTokenByUserID@gmail.com");
     if (!DeleteTokenByUserID) throw new Error();
     await TokensResponse.CreateTokenResponse({
-      input: { refresh: "DeleteTokenByUserID", secret: "DeleteTokenByUserID", user_id: DeleteTokenByUserID?.id },
+      input: { refresh: "DeleteTokenByUserID", user_id: DeleteTokenByUserID?.id },
     });
   });
 

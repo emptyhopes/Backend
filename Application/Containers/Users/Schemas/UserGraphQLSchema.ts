@@ -4,7 +4,6 @@ const UserGraphQLSchemaModel = `
     email: String!
     username: String!
     password: String!
-    is_activated: Boolean
     role_id: Int
     created_at: String
     updated_at: String
@@ -49,7 +48,6 @@ const UserGraphQLSchemaInputs = `
     email: String!
     username: String!
     password: String!
-    is_activated: Boolean!
     role_id: Int!
   }
 `;
