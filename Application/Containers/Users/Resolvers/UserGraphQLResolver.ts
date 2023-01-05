@@ -12,7 +12,9 @@ import {
   DeleteUserByIDInputInterface,
   DeleteUserByUsernameInputInterface,
   DeleteUserByEmailInputInterface,
+  UserOutputInterface,
 } from "@/Application/Containers/Users/Types/UsersTypes";
+// import { TokenOutputInterface } from "@/Application/Containers/Tokens/Types/TokensTypes";
 
 import { UserGraphQLValidations } from "@/Application/Containers/Users/Validations/UserGraphQLValidation";
 
@@ -71,6 +73,15 @@ const UserGraphQLResolver = {
     DeleteUserByEmail: async (_: undefined, { email }: DeleteUserByEmailInputInterface) => {
       const data = await UserGraphQLValidations.DeleteUserByEmailValidation({ email: email });
       return await prisma.user.delete({ where: { email: String(data) } });
+    },
+  },
+
+  User: {
+    role: async (parent: UserOutputInterface) => {
+      return await prisma.role.findUnique({ where: { id: parent.role_id } });
+    },
+    token: async (parent: UserOutputInterface) => {
+      return await prisma.token.findUnique({ where: { user_id: parent.id } });
     },
   },
 };

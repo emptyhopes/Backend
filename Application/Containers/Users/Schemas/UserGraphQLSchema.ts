@@ -4,7 +4,9 @@ const UserGraphQLSchemaModel = `
     email: String!
     username: String!
     password: String!
-    role_id: Int
+    role_id: Int!
+    role: Role!
+    token: Token
     created_at: String
     updated_at: String
   }

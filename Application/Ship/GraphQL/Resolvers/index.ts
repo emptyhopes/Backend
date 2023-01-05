@@ -4,15 +4,24 @@ import { TokenGraphQLResolver } from "@/Application/Containers/Tokens/Resolvers/
 
 const resolvers = {
   Query: {
+    // Roles
     ...RoleGraphQLResolver.Query,
+    // Users
     ...UserGraphQLResolver.Query,
+    // Tokens
     ...TokenGraphQLResolver.Query,
   },
   Mutation: {
+    // Roles
     ...RoleGraphQLResolver.Mutation,
+    // Users
     ...UserGraphQLResolver.Mutation,
+    // Tokens
     ...TokenGraphQLResolver.Mutation,
   },
+
+  // Users
+  User: UserGraphQLResolver.User,
 };
 
 export { resolvers };
